@@ -1,6 +1,6 @@
 // Change this to your deployed backend URL when you go live
 // e.g. 'https://tech-curious-api.onrender.com/api'
-const API_BASE = 'https://tech-curious.onrender.com/api';
+const API_BASE ='https://tech-curious.onrender.com/api';
 
 const grid = document.getElementById('grid');
 const archiveTitle = document.getElementById('archiveTitle');
