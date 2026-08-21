@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Curious — Build Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0D1A12', bgElev: '#12241A', bgElev2: '#16291E',
+          brass: '#C9A227', brassBright: '#E6C34A', copper: '#B0713F',
+          silk: '#EDEAE1', silkDim: '#8FA396',
+        },
+        fontFamily: {
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body {
+    background-image:
+      linear-gradient(rgba(201,162,39,0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.14) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .trace-corner::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
+    border-top: 2px solid #E6C34A; border-left: 2px solid #E6C34A;
+    opacity: 0; transition: width .3s ease, height .3s ease, opacity .2s ease;
+  }
+  .trace-corner:hover::before { width: 28px; height: 28px; opacity: 1; }
+  .pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.55;transform:scale(.75);} }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body class="bg-bg text-silk font-sans antialiased">
+
+<header class="sticky top-0 z-50 bg-bg/85 backdrop-blur border-b border-line">
+  <nav class="max-w-6xl mx-auto px-7 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5 font-mono font-semibold text-[15px] tracking-wide">
+      <span class="w-2 h-2 rounded-full bg-brassBright shadow-[0_0_10px_2px_rgba(230,195,74,0.55)] pulse-dot"></span>
+      Tech Curious
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#archive" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">Archive</a>
+      <a href="#" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">Learn</a>
+      <a href="#" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">About</a>
+    </div>
+    <a href="login.html" class="font-mono text-[12.5px] tracking-wide px-4 py-2 border border-brass rounded-sm text-brassBright hover:bg-brass hover:text-bg transition whitespace-nowrap">
+      Admin login →
+    </a>
+  </nav>
+</header>
+
+<section class="max-w-6xl mx-auto px-7 grid md:grid-cols-[1.15fr_0.85fr] gap-14 items-center pt-20 pb-16">
+  <div>
+    <div class="flex items-center gap-2.5 font-mono text-[12.5px] tracking-[0.14em] text-copper uppercase mb-5">
+      <span class="w-5 h-px bg-copper"></span> Build Archive
+    </div>
+    <h1 class="font-mono font-bold text-[clamp(32px,4.4vw,54px)] leading-[1.08] max-w-[12.5ch]">
+      Every wire, every line of code, <span class="text-brassBright">documented.</span>
+    </h1>
+    <p class="mt-5 text-[16.5px] text-silkDim max-w-[46ch]">
+      Source code, wiring diagrams, and component breakdowns for every hardware build — logged the way tutorials should be: complete, and copy-pasteable.
+    </p>
+    <div class="flex flex-wrap gap-3.5 mt-8">
+      <a href="#archive" class="font-mono text-[13.5px] px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright hover:-translate-y-px transition inline-flex items-center gap-2">
+        Browse the archive →
+      </a>
+      <a href="#" class="font-mono text-[13.5px] px-5 py-3 rounded-sm border border-line text-silk hover:border-copper hover:text-brassBright transition inline-flex items-center gap-2">
+        Start the 60-day series
+      </a>
+    </div>
+  </div>
+
+  <div class="hidden md:block aspect-square" aria-hidden="true">
+    <svg viewBox="0 0 400 400" fill="none" class="w-full h-full">
+      <g stroke="rgba(201,162,39,0.14)" stroke-width="1">
+        <path d="M40 80 H160 V160 H320" />
+        <path d="M40 200 H120 V320 H280 V240" />
+        <path d="M360 60 V180 H240 V260" />
+        <path d="M60 360 V280 H180" />
+      </g>
+      <circle cx="40" cy="80" r="4" fill="#C9A227" />
+      <circle cx="320" cy="160" r="4" fill="#C9A227" />
+      <circle cx="120" cy="320" r="4" fill="#B0713F" />
+      <circle cx="280" cy="240" r="5" fill="#E6C34A">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.6s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="360" cy="60" r="4" fill="#C9A227" />
+      <circle cx="60" cy="360" r="4" fill="#B0713F" />
+      <rect x="170" y="150" width="60" height="24" rx="2" stroke="#C9A227" stroke-width="1.2" />
+      <rect x="140" y="300" width="44" height="44" rx="2" stroke="#B0713F" stroke-width="1.2" />
+    </svg>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-7">
+  <div id="archive" class="border-t border-b border-line py-5 flex flex-wrap items-center justify-between gap-4">
+    <div id="archiveTitle" class="font-mono text-[13px] text-silkDim">Loading builds…</div>
+    <div class="flex flex-wrap gap-2">
+      <button data-filter="all" class="filter-btn active-filter font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">All</button>
+      <button data-filter="robotics" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Robotics</button>
+      <button data-filter="sensors" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Sensors</button>
+      <button data-filter="iot" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">IoT</button>
+      <button data-filter="motors" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Motors</button>
+    </div>
+  </div>
+
+  <div id="grid" class="py-10 pb-24 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Project cards injected by js/main.js -->
+  </div>
+</div>
+
+<footer class="border-t border-line py-14">
+  <div class="max-w-6xl mx-auto px-7">
+    <div class="flex flex-wrap items-center justify-between gap-6 pb-10 mb-8 border-b border-line">
+      <h2 class="font-mono text-xl max-w-[20ch]">Building something? Let's compare notes.</h2>
+      <a href="mailto:hello@techcurious.dev" class="font-mono text-[13.5px] px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">Get in touch →</a>
+    </div>
+    <div class="flex flex-wrap justify-between gap-3 font-mono text-xs text-silkDim">
+      <span>© 2026 Tech Curious</span>
+      <span>Built for the maker community</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Curious — Upload Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0D1A12', bgElev: '#12241A', bgElev2: '#16291E',
+          brass: '#C9A227', brassBright: '#E6C34A', copper: '#B0713F',
+          silk: '#EDEAE1', silkDim: '#8FA396',
+        },
+        fontFamily: {
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body {
+    background-image:
+      linear-gradient(rgba(201,162,39,0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.14) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+</style>
+</head>
+<body class="bg-bg text-silk font-sans min-h-screen">
+
+<header class="sticky top-0 z-50 bg-bg/85 backdrop-blur border-b border-line">
+  <nav class="max-w-5xl mx-auto px-7 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5 font-mono font-semibold text-[15px] tracking-wide">
+      <span class="w-2 h-2 rounded-full bg-brassBright shadow-[0_0_10px_2px_rgba(230,195,74,0.55)]"></span>
+      Tech Curious
+    </a>
+    <button id="logoutBtn" class="font-mono text-xs px-4 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">
+      Log out
+    </button>
+  </nav>
+</header>
+
+<main class="max-w-5xl mx-auto px-7 py-12">
+  <h1 class="font-mono font-bold text-2xl mb-1">Upload a new build</h1>
+  <p class="text-silkDim text-sm mb-8">Image uploads go straight to Cloudinary — no local storage needed.</p>
+
+  <form id="uploadForm" class="grid md:grid-cols-2 gap-5 bg-bgElev border border-line rounded-sm p-6 mb-14">
+    <div class="md:col-span-2">
+      <label class="block font-mono text-xs text-silkDim mb-1.5">Project title</label>
+      <input name="title" required
+        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition"
+        placeholder="Gesture-Controlled Robotic Arm">
+    </div>
+
+    <div>
+      <label class="block font-mono text-xs text-silkDim mb-1.5">Category</label>
+      <select name="category" required
+        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition">
+        <option value="robotics">Robotics</option>
+        <option value="sensors">Sensors</option>
+        <option value="iot">IoT</option>
+        <option value="motors">Motors</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block font-mono text-xs text-silkDim mb-1.5">Photo</label>
+      <input name="image" type="file" accept="image/*" required
+        class="w-full bg-bg border border-line rounded-sm px-4 py-2.5 text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-brass file:text-bg file:font-mono file:text-xs file:font-semibold">
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="block font-mono text-xs text-silkDim mb-1.5">One-line spec</label>
+      <input name="spec"
+        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition"
+        placeholder="MPU6050 + 4x servo, PID-smoothed motion">
+    </div>
+
+    <p id="uploadMsg" class="md:col-span-2 hidden text-xs font-mono"></p>
+
+    <div class="md:col-span-2">
+      <button type="submit" id="uploadBtn"
+        class="font-mono text-sm px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">
+        Upload build →
+      </button>
+    </div>
+  </form>
+
+  <h2 class="font-mono font-bold text-lg mb-5">Logged builds</h2>
+  <div id="adminGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
