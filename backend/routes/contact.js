@@ -1,5 +1,5 @@
 const express = require('express');
-const transporter = require('../config/mailer');
+const resend = require('../config/resend');
 
 const router = express.Router();
 
@@ -13,8 +13,11 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    await transporter.sendMail({
-      from: `"Tech Curious Contact Form" <${process.env.EMAIL_USER}>`,
+    const { error } = await resend.emails.send({
+      // "onboarding@resend.dev" is Resend's shared sender — works with no
+      // setup. Once you verify your own domain on resend.com, change this to
+      // something like "Tech Curious <hello@techcurious.in>" instead.
+      from: 'Tech Curious <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL,
       replyTo: email,
       subject: `New message from ${name} — Tech Curious`,
@@ -25,6 +28,8 @@ router.post('/', async (req, res) => {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `,
     });
+
+    if (error) throw new Error(error.message || 'Resend API error');
 
     res.status(200).json({ success: true });
   } catch (err) {
