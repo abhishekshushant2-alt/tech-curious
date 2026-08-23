@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PCB dot-grid background, used on every page */
+body {
+  background-image:
+    linear-gradient(rgba(201, 162, 39, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 162, 39, 0.14) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Hover "continuity trace" corner on cards (index.html) */
+.trace-corner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 2px solid #e6c34a;
+  border-left: 2px solid #e6c34a;
+  opacity: 0;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+}
+.trace-corner:hover::before {
+  width: 28px;
+  height: 28px;
+  opacity: 1;
+}
+
+/* Card image zoom on hover (index.html) */
+.card-img-wrap {
+  overflow: hidden;
+}
+.card-img-wrap img {
+  transition: transform 0.45s ease;
+}
+.trace-corner:hover .card-img-wrap img {
+  transform: scale(1.08);
+}
+
+/* Logo status dot pulse */
+.pulse-dot {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.75); }
+}
+
+/* "Electrical current" sweep across the Tech Curious wordmark */
+.current-text {
+  background: linear-gradient(
+    90deg,
+    #c9a227 0%, #c9a227 40%,
+    #fff3c4 50%,
+    #c9a227 60%, #c9a227 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: current-sweep 3.2s linear infinite;
+  text-shadow: 0 0 14px rgba(230, 195, 74, 0.25);
+}
+@keyframes current-sweep {
+  0% { background-position: 160% 0; }
+  100% { background-position: -60% 0; }
+}
+
+/* Contact modal (index.html) */
+#contactModal { display: none; }
+#contactModal.open { display: flex; }
+
+/* Project detail page (project.html) */
+.section-card {
+  background: #12241a;
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 3px;
+  padding: 24px;
+}
+.section-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 14px;
+  color: #edeae1;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-head .bar {
+  width: 3px;
+  height: 16px;
+  background: #c9a227;
+  border-radius: 2px;
+}
+.bullet-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  color: #c9cfc9;
+  line-height: 1.6;
+}
+.bullet-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #e6c34a;
+  font-size: 12px;
+}
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  background: #0d1a12;
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 3px;
+  padding: 10px 14px;
+  color: #edeae1;
+}
+pre.code-block {
+  background: #0d1a12;
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 3px;
+  padding: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: #c9cfc9;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 420px;
+}
+#copyBtn.copied {
+  background: #e6c34a !important;
+}
+
+/* Admin upload form (admin.html) */
+.field-label {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #8fa396;
+  margin-bottom: 6px;
+}
+.field-hint {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #5e6e63;
+  margin-top: 4px;
+}
+.field-input {
+  width: 100%;
+  background: #0d1a12;
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 3px;
+  padding: 12px 16px;
+  color: #edeae1;
+  transition: border-color 0.2s ease;
+}
+.field-input:focus {
+  outline: none;
+  border-color: #c9a227;
+}
+.section-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  color: #e6c34a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 8px 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .bar {
+  width: 3px;
+  height: 14px;
+  background: #c9a227;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .current-text {
+    background-position: 0 0;
+  }
+}

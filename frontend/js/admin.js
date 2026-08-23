@@ -1,5 +1,5 @@
 // Change this to your deployed backend URL when you go live
-const API_BASE ='https://api.techcurious.in/api';
+const API_BASE = 'http://api.techcurious.in/api';
 const TOKEN_KEY = 'techCuriousToken';
 
 // ---------- login.html ----------

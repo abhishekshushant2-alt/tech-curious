@@ -4,39 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tech Curious — Upload Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230D1A12'/%3E%3Ctext x='32' y='42' font-family='monospace' font-weight='700' font-size='26' fill='%23E6C34A' text-anchor='middle'%3ETC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          bg: '#0D1A12', bgElev: '#12241A', bgElev2: '#16291E',
-          brass: '#C9A227', brassBright: '#E6C34A', copper: '#B0713F',
-          silk: '#EDEAE1', silkDim: '#8FA396',
-        },
-        fontFamily: {
-          mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
-          sans: ['Inter', 'system-ui', 'sans-serif'],
-        },
-      },
-    },
-  };
-</script>
-<style>
-  body {
-    background-image:
-      linear-gradient(rgba(201,162,39,0.14) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,162,39,0.14) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-</style>
+<link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-bg text-silk font-sans min-h-screen">
 
 <header class="sticky top-0 z-50 bg-bg/85 backdrop-blur border-b border-line">
-  <nav class="max-w-5xl mx-auto px-7 py-4 flex items-center justify-between">
+  <nav class="max-w-4xl mx-auto px-7 py-4 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-2.5 font-mono font-semibold text-[15px] tracking-wide">
       <span class="w-2 h-2 rounded-full bg-brassBright shadow-[0_0_10px_2px_rgba(230,195,74,0.55)]"></span>
       Tech Curious
@@ -47,50 +23,121 @@
   </nav>
 </header>
 
-<main class="max-w-5xl mx-auto px-7 py-12">
+<main class="max-w-4xl mx-auto px-7 py-12">
   <h1 class="font-mono font-bold text-2xl mb-1">Upload a new build</h1>
-  <p class="text-silkDim text-sm mb-8">Image uploads go straight to Cloudinary — no local storage needed.</p>
+  <p class="text-silkDim text-sm mb-8">Fill in as much as you like — everything except title, category, and cover photo is optional. Only filled-in sections show up on the project page.</p>
 
-  <form id="uploadForm" class="grid md:grid-cols-2 gap-5 bg-bgElev border border-line rounded-sm p-6 mb-14">
-    <div class="md:col-span-2">
-      <label class="block font-mono text-xs text-silkDim mb-1.5">Project title</label>
-      <input name="title" required
-        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition"
-        placeholder="Gesture-Controlled Robotic Arm">
+  <form id="uploadForm" class="space-y-8 bg-bgElev border border-line rounded-sm p-6 md:p-8 mb-14">
+
+    <!-- Basics -->
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="md:col-span-2">
+        <label class="field-label">Project title *</label>
+        <input name="title" required class="field-input" placeholder="Gesture-Controlled Robotic Arm">
+      </div>
+      <div>
+        <label class="field-label">Category *</label>
+        <select name="category" required class="field-input">
+          <option value="robotics">Robotics</option>
+          <option value="sensors">Sensors</option>
+          <option value="iot">IoT</option>
+          <option value="motors">Motors</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label">One-line spec</label>
+        <input name="spec" class="field-input" placeholder="MPU6050 + 4x servo, PID-smoothed motion">
+      </div>
+      <div>
+        <label class="field-label">Cover photo *</label>
+        <input name="image" type="file" accept="image/*" required
+          class="field-input file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-brass file:text-bg file:font-mono file:text-xs file:font-semibold">
+        <p class="field-hint">Shown on the archive grid and project header.</p>
+      </div>
+      <div>
+        <label class="field-label">Wiring / schematic photo</label>
+        <input name="wiringImage" type="file" accept="image/*"
+          class="field-input file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-brass file:text-bg file:font-mono file:text-xs file:font-semibold">
+        <p class="field-hint">Optional — shown in the "Wiring Schematic" section.</p>
+      </div>
     </div>
 
+    <!-- Overview / writeup -->
+    <div class="section-title"><span class="bar"></span> Project Overview</div>
     <div>
-      <label class="block font-mono text-xs text-silkDim mb-1.5">Category</label>
-      <select name="category" required
-        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition">
-        <option value="robotics">Robotics</option>
-        <option value="sensors">Sensors</option>
-        <option value="iot">IoT</option>
-        <option value="motors">Motors</option>
-      </select>
+      <label class="field-label">Overview</label>
+      <textarea name="overview" rows="4" class="field-input" placeholder="What this build is and what it does, in a couple of paragraphs."></textarea>
     </div>
-
     <div>
-      <label class="block font-mono text-xs text-silkDim mb-1.5">Photo</label>
-      <input name="image" type="file" accept="image/*" required
-        class="w-full bg-bg border border-line rounded-sm px-4 py-2.5 text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:bg-brass file:text-bg file:font-mono file:text-xs file:font-semibold">
+      <label class="field-label">Working principle</label>
+      <textarea name="workingPrinciple" rows="4" class="field-input" placeholder="How the circuit / code actually works under the hood."></textarea>
+    </div>
+    <div>
+      <label class="field-label">Project flow</label>
+      <textarea name="projectFlow" rows="3" class="field-input" placeholder="e.g. Sensor reads input -> MCU processes -> actuator responds"></textarea>
     </div>
 
-    <div class="md:col-span-2">
-      <label class="block font-mono text-xs text-silkDim mb-1.5">One-line spec</label>
-      <input name="spec"
-        class="w-full bg-bg border border-line rounded-sm px-4 py-3 focus:outline-none focus:border-brass transition"
-        placeholder="MPU6050 + 4x servo, PID-smoothed motion">
+    <!-- Lists -->
+    <div class="section-title"><span class="bar"></span> Lists <span class="normal-case font-sans text-silkDim text-[11px]">(one item per line)</span></div>
+    <div class="grid md:grid-cols-2 gap-5">
+      <div>
+        <label class="field-label">Features</label>
+        <textarea name="features" rows="5" class="field-input" placeholder="Real-time sensor readout&#10;Wi-Fi based control&#10;OLED status display"></textarea>
+      </div>
+      <div>
+        <label class="field-label">Applications</label>
+        <textarea name="applications" rows="5" class="field-input" placeholder="Home automation&#10;Educational demos"></textarea>
+      </div>
+      <div>
+        <label class="field-label">Hardware required</label>
+        <textarea name="hardwareRequired" rows="5" class="field-input" placeholder="ESP32 dev board&#10;SSD1306 OLED display&#10;Breadboard + jumper wires"></textarea>
+      </div>
+      <div>
+        <label class="field-label">Software &amp; libraries</label>
+        <textarea name="softwareLibraries" rows="5" class="field-input" placeholder="Arduino IDE&#10;Adafruit_SSD1306&#10;WiFi.h"></textarea>
+      </div>
+      <div>
+        <label class="field-label">Step-by-step build instructions</label>
+        <textarea name="stepByStep" rows="6" class="field-input" placeholder="Wire the OLED to the ESP32 per the schematic&#10;Flash the firmware&#10;Connect to the access point&#10;Test the interface"></textarea>
+      </div>
+      <div>
+        <label class="field-label">Future improvements</label>
+        <textarea name="futureImprovements" rows="6" class="field-input" placeholder="Add color OLED support&#10;Multi-user collaboration"></textarea>
+      </div>
+      <div class="md:col-span-2">
+        <label class="field-label">Learning outcomes</label>
+        <textarea name="learningOutcomes" rows="4" class="field-input" placeholder="Setting up an access point on ESP32&#10;Real-time WebSocket communication"></textarea>
+      </div>
     </div>
 
-    <p id="uploadMsg" class="md:col-span-2 hidden text-xs font-mono"></p>
-
-    <div class="md:col-span-2">
-      <button type="submit" id="uploadBtn"
-        class="font-mono text-sm px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">
-        Upload build →
-      </button>
+    <!-- Troubleshooting -->
+    <div class="section-title"><span class="bar"></span> Common Issues &amp; Solutions</div>
+    <div>
+      <label class="field-label">Troubleshooting notes</label>
+      <textarea name="commonIssues" rows="6" class="field-input" placeholder="Write freely, e.g.&#10;&#10;1. Web page fails to load&#10;Reason: device not connected to Wi-Fi network&#10;Solution: verify the correct IP is entered in the browser"></textarea>
     </div>
+
+    <!-- Wrap-up -->
+    <div class="section-title"><span class="bar"></span> Wrap-up</div>
+    <div>
+      <label class="field-label">Conclusion</label>
+      <textarea name="conclusion" rows="4" class="field-input" placeholder="Summary takeaway for the reader."></textarea>
+    </div>
+
+    <!-- Source code -->
+    <div class="section-title"><span class="bar"></span> Source Code</div>
+    <div>
+      <label class="field-label">Full source code (pasted in original format)</label>
+      <textarea name="sourceCode" rows="14" class="field-input font-mono text-[13px]" placeholder="// paste your complete code here, exactly as written"></textarea>
+      <p class="field-hint">Shown in a copyable code block on the project page.</p>
+    </div>
+
+    <p id="uploadMsg" class="hidden text-xs font-mono"></p>
+
+    <button type="submit" id="uploadBtn"
+      class="font-mono text-sm px-6 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">
+      Upload build →
+    </button>
   </form>
 
   <h2 class="font-mono font-bold text-lg mb-5">Logged builds</h2>

@@ -4,43 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tech Curious — Build Archive</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230D1A12'/%3E%3Ctext x='32' y='42' font-family='monospace' font-weight='700' font-size='26' fill='%23E6C34A' text-anchor='middle'%3ETC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          bg: '#0D1A12', bgElev: '#12241A', bgElev2: '#16291E',
-          brass: '#C9A227', brassBright: '#E6C34A', copper: '#B0713F',
-          silk: '#EDEAE1', silkDim: '#8FA396',
-        },
-        fontFamily: {
-          mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
-          sans: ['Inter', 'system-ui', 'sans-serif'],
-        },
-      },
-    },
-  };
-</script>
-<style>
-  body {
-    background-image:
-      linear-gradient(rgba(201,162,39,0.14) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,162,39,0.14) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-  .trace-corner::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
-    border-top: 2px solid #E6C34A; border-left: 2px solid #E6C34A;
-    opacity: 0; transition: width .3s ease, height .3s ease, opacity .2s ease;
-  }
-  .trace-corner:hover::before { width: 28px; height: 28px; opacity: 1; }
-  .pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.55;transform:scale(.75);} }
-  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-</style>
+<link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-bg text-silk font-sans antialiased">
 
@@ -48,12 +15,12 @@
   <nav class="max-w-6xl mx-auto px-7 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2.5 font-mono font-semibold text-[15px] tracking-wide">
       <span class="w-2 h-2 rounded-full bg-brassBright shadow-[0_0_10px_2px_rgba(230,195,74,0.55)] pulse-dot"></span>
-      Tech Curious
+      <span class="current-text">Tech Curious</span>
     </a>
     <div class="hidden md:flex items-center gap-8">
       <a href="#archive" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">Archive</a>
       <a href="#" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">Learn</a>
-      <a href="#" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition">About</a>
+      <a href="#" id="openContact" class="font-mono text-[13.5px] text-silkDim hover:text-silk transition cursor-pointer">Contact</a>
     </div>
     <a href="login.html" class="font-mono text-[12.5px] tracking-wide px-4 py-2 border border-brass rounded-sm text-brassBright hover:bg-brass hover:text-bg transition whitespace-nowrap">
       Admin login →
@@ -104,11 +71,14 @@
   </div>
 </section>
 
+<!-- Latest Drop: most recently uploaded project -->
+<div id="latestDrop" class="max-w-6xl mx-auto px-7 hidden"></div>
+
 <div class="max-w-6xl mx-auto px-7">
-  <div id="archive" class="border-t border-b border-line py-5 flex flex-wrap items-center justify-between gap-4">
+  <div id="archive" class="border-t border-b border-line py-5 flex flex-wrap items-center justify-between gap-4 mt-14">
     <div id="archiveTitle" class="font-mono text-[13px] text-silkDim">Loading builds…</div>
     <div class="flex flex-wrap gap-2">
-      <button data-filter="all" class="filter-btn active-filter font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">All</button>
+      <button data-filter="all" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">All</button>
       <button data-filter="robotics" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Robotics</button>
       <button data-filter="sensors" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Sensors</button>
       <button data-filter="iot" class="filter-btn font-mono text-xs px-3.5 py-2 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">IoT</button>
@@ -125,7 +95,7 @@
   <div class="max-w-6xl mx-auto px-7">
     <div class="flex flex-wrap items-center justify-between gap-6 pb-10 mb-8 border-b border-line">
       <h2 class="font-mono text-xl max-w-[20ch]">Building something? Let's compare notes.</h2>
-      <a href="mailto:techcurioussofficial@gmail.com" class="font-mono text-[13.5px] px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">Get in touch →</a>
+      <button id="openContact2" class="font-mono text-[13.5px] px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">Get in touch →</button>
     </div>
     <div class="flex flex-wrap justify-between gap-3 font-mono text-xs text-silkDim">
       <span>© 2026 Tech Curious</span>
@@ -133,6 +103,36 @@
     </div>
   </div>
 </footer>
+
+<!-- Contact modal -->
+<div id="contactModal" class="fixed inset-0 z-[100] items-center justify-center bg-black/70 backdrop-blur-sm px-6">
+  <div class="w-full max-w-md bg-bgElev border border-line rounded-sm p-7 relative">
+    <button id="closeContact" class="absolute top-4 right-4 text-silkDim hover:text-silk font-mono text-sm">✕</button>
+    <div class="font-mono text-[12px] tracking-[0.14em] text-copper uppercase mb-2 flex items-center gap-2">
+      <span class="w-4 h-px bg-copper"></span> Get in touch
+    </div>
+    <h2 class="font-mono font-bold text-xl mb-6">Send a message</h2>
+
+    <form id="contactForm" class="space-y-4">
+      <div>
+        <label class="block font-mono text-xs text-silkDim mb-1.5">Your name</label>
+        <input name="name" required class="w-full bg-bg border border-line rounded-sm px-4 py-2.5 focus:outline-none focus:border-brass transition">
+      </div>
+      <div>
+        <label class="block font-mono text-xs text-silkDim mb-1.5">Your email</label>
+        <input name="email" type="email" required class="w-full bg-bg border border-line rounded-sm px-4 py-2.5 focus:outline-none focus:border-brass transition">
+      </div>
+      <div>
+        <label class="block font-mono text-xs text-silkDim mb-1.5">Message</label>
+        <textarea name="message" rows="4" required class="w-full bg-bg border border-line rounded-sm px-4 py-2.5 focus:outline-none focus:border-brass transition"></textarea>
+      </div>
+      <p id="contactMsg" class="hidden text-xs font-mono"></p>
+      <button type="submit" id="contactSubmitBtn" class="w-full font-mono text-sm px-5 py-3 rounded-sm bg-brass text-bg font-semibold hover:bg-brassBright transition">
+        Send message →
+      </button>
+    </form>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
 </body>
