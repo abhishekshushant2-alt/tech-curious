@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const projectsRouter = require('./routes/projects');
 const authRouter = require('./routes/auth');
+const contactRouter = require('./routes/contact');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use('/api/projects', projectsRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/contact', contactRouter);
 
 app.get('/', (req, res) => {
   res.send('Tech Curious API is running.');

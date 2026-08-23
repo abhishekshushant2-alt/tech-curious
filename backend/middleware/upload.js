@@ -24,4 +24,11 @@ const upload = multer({
   },
 });
 
-module.exports = upload;
+// Accepts a cover photo ("image") and an optional wiring/schematic photo
+// ("wiringImage") in the same multipart upload.
+const uploadProjectImages = upload.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'wiringImage', maxCount: 1 },
+]);
+
+module.exports = { upload, uploadProjectImages };
