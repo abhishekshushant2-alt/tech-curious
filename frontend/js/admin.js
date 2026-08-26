@@ -58,8 +58,8 @@ if (uploadForm) {
     const projects = await res.json();
 
     adminGrid.innerHTML = projects.map((p) => `
-      <div class="bg-bgElev border border-line rounded-sm p-4">
-        <img src="${p.imageUrl}" alt="${p.title}" class="w-full h-32 object-cover rounded-sm mb-3 border border-line">
+      <div class="bg-bgElev border border-line rounded-2xl p-4">
+        <img src="${p.imageUrl}" alt="${p.title}" class="w-full h-32 object-cover rounded-xl mb-3 border border-line">
         <div class="flex items-center justify-between mb-2">
           <span class="font-mono text-[10px] uppercase text-copper">${tagLabels[p.category] || p.category}</span>
           <button data-id="${p.id}" class="deleteBtn font-mono text-[11px] text-silkDim hover:text-copper transition">Delete</button>

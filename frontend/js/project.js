@@ -70,7 +70,7 @@ function render(p) {
     ${p.spec ? `<p class="text-silkDim text-[15px] mb-8 max-w-[60ch]">${escapeHTML(p.spec)}</p>` : '<div class="mb-8"></div>'}
 
     ${p.imageUrl ? `
-      <img src="${p.imageUrl}" alt="${escapeHTML(p.title)}" class="w-full max-h-[420px] object-cover rounded-sm border border-line mb-10">
+      <img src="${p.imageUrl}" alt="${escapeHTML(p.title)}" class="w-full max-h-[420px] object-cover rounded-2xl border border-line mb-10">
     ` : ''}
 
     <div class="grid gap-6">
@@ -79,7 +79,7 @@ function render(p) {
       ${p.wiringImageUrl ? `
         <div class="section-card">
           <div class="section-head"><span class="bar"></span> Wiring Schematic</div>
-          <img src="${p.wiringImageUrl}" alt="Wiring schematic for ${escapeHTML(p.title)}" class="w-full rounded-sm border border-line">
+          <img src="${p.wiringImageUrl}" alt="Wiring schematic for ${escapeHTML(p.title)}" class="w-full rounded-xl border border-line">
         </div>
       ` : ''}
 
@@ -99,7 +99,7 @@ function render(p) {
         <div class="section-card">
           <div class="flex items-center justify-between mb-4">
             <div class="section-head mb-0"><span class="bar"></span> Source Code</div>
-            <button id="copyBtn" class="font-mono text-[11px] px-3 py-1.5 border border-line rounded-sm text-silkDim hover:border-copper hover:text-silk transition">Copy source code</button>
+            <button id="copyBtn" class="font-mono text-[11px] px-3 py-1.5 border border-line rounded-full text-silkDim hover:border-copper hover:text-silk transition">Copy source code</button>
           </div>
           <pre class="code-block"><code id="sourceCode">${escapeHTML(p.sourceCode)}</code></pre>
         </div>

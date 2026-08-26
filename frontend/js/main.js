@@ -17,15 +17,15 @@ function formatDate(iso) {
 
 function cardHTML(p) {
   return `
-    <a href="project.html?id=${p.id}" class="trace-corner relative block bg-bgElev border border-line rounded-sm p-5 overflow-hidden hover:border-copper hover:bg-bgElev2 hover:-translate-y-1 transition-all duration-300">
-      <div class="flex items-center justify-between mb-4">
-        <span class="font-mono text-[10.5px] tracking-wider uppercase text-copper border border-copper/35 rounded-sm px-2 py-0.5">${tagLabels[p.category] || p.category}</span>
-        <span class="font-mono text-[11px] text-silkDim">${formatDate(p.date)}</span>
-      </div>
+    <a href="project.html?id=${p.id}" class="trace-corner block bg-bgElev border border-line rounded-2xl p-5 overflow-hidden hover:border-copper hover:bg-bgElev2 hover:-translate-y-1 transition-all duration-300">
       ${p.imageUrl ? `
-        <div class="card-img-wrap rounded-sm mb-4 border border-line">
+        <div class="card-img-wrap rounded-xl mb-4 border border-line -mt-1">
           <img src="${p.imageUrl}" alt="${p.title}" class="w-full h-40 object-cover" loading="lazy">
         </div>` : ''}
+      <div class="flex items-center justify-between mb-3">
+        <span class="badge-pill">${tagLabels[p.category] || p.category}</span>
+        <span class="font-mono text-[11px] text-silkDim">${formatDate(p.date)}</span>
+      </div>
       <h3 class="font-sans font-semibold text-[16.5px] mb-2 leading-snug">${p.title}</h3>
       <p class="text-[13.5px] text-silkDim mb-5 leading-relaxed">${p.spec || ''}</p>
       <span class="font-mono text-xs text-brassBright inline-flex items-center gap-1.5">View source →</span>
@@ -41,14 +41,14 @@ function renderLatestDrop() {
   const latest = allProjects[0];
   latestDrop.classList.remove('hidden');
   latestDrop.innerHTML = `
-    <a href="project.html?id=${latest.id}" class="trace-corner relative block bg-bgElev border border-copper/40 rounded-sm p-6 md:p-8 grid md:grid-cols-[1fr_1.2fr] gap-6 items-center hover:border-brass transition-all duration-300">
+    <a href="project.html?id=${latest.id}" class="trace-corner block bg-bgElev border border-copper/40 rounded-2xl p-6 md:p-8 grid md:grid-cols-[1fr_1.2fr] gap-6 items-center hover:border-brass transition-all duration-300">
       ${latest.imageUrl ? `
-        <div class="card-img-wrap rounded-sm border border-line order-2 md:order-1">
+        <div class="card-img-wrap rounded-xl border border-line order-2 md:order-1">
           <img src="${latest.imageUrl}" alt="${latest.title}" class="w-full h-56 object-cover">
         </div>` : '<div class="order-2 md:order-1"></div>'}
       <div class="order-1 md:order-2">
-        <div class="font-mono text-[11.5px] tracking-[0.14em] text-brassBright uppercase mb-3 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-brassBright pulse-dot"></span> Latest drop · ${formatDate(latest.date)}
+        <div class="badge-pill mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-brassBright pulse-dot"></span> Latest drop · ${formatDate(latest.date)}
         </div>
         <h2 class="font-mono font-bold text-2xl md:text-3xl mb-3 leading-tight">${latest.title}</h2>
         <p class="text-silkDim text-sm mb-5">${latest.spec || ''}</p>
